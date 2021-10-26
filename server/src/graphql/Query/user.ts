@@ -1,6 +1,6 @@
 import { Resolver, Query, Ctx } from "type-graphql";
-import { Freelancer } from "../../models/Freelancer";
-import { Job } from "../../models/Job";
+import { Freelancer } from "../../entity/Freelancer";
+import { Job } from "../../entity/Job";
 import { MyContext } from "../../types";
 
 @Resolver()

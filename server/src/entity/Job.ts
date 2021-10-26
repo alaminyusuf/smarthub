@@ -16,27 +16,24 @@ export class Job extends BaseEntity {
 	@Field(() => Int)
 	@PrimaryGeneratedColumn({ type: "int" })
 	public id!: number;
+	@Field(() => String)
+	@Column({ nullable: false, type: "varchar" })
+	public desc!: string;
+	@Field(() => Int)
+	@Column({ default: 0, type: "int" })
+	public price!: number;
+	@Field(() => String)
+	@Column({ nullable: false, type: "varchar" })
+	public title!: string;
+	@Field(() => [String])
+	@Column({ type: "text", array: true, default: [] })
+	public tags!: string[];
+	@Field(() => Boolean)
+	@Column({ default: false })
+	public completed!: boolean;
 	@Field(() => Client)
 	@ManyToOne(() => Client, (client) => client.jobs)
 	public author!: Client;
-	@Field(() => Int)
-	@Column({ type: "int" })
-	public authorId!: number;
-	@Field(() => String)
-	@Column({ nullable: false })
-	public desc!: string;
-	@Field(() => Int)
-	@Column({ nullable: false, type: "int" })
-	public price!: number;
-	@Field(() => String)
-	@Column({ nullable: false })
-	public title!: string;
-	@Field(() => [String])
-	@Column({ nullable: false })
-	public tags!: string[];
-	@Field(() => Boolean)
-	@Column({ nullable: false, default: false })
-	public completed!: boolean;
 	@Field(() => String)
 	@CreateDateColumn()
 	public createdAt: Date;

@@ -19,14 +19,26 @@ dotenv.config();
 const COOKIE_SECRET = process.env.COOKIE_SECRET;
 
 async function StartServer() {
-	await createConnection({
-		type: "mongodb",
-		host: "localhost",
-		port: 27017,
-		database: "smarthub",
-		entities: ["src/models/*{.ts,.js}"],
-		useUnifiedTopology: true,
-	}).then((conn) => console.log("MongoDB connected", conn.isConnected));
+	let retries = 5;
+	try {
+		while (retries) {
+			await createConnection();
+			break;
+		}
+	} catch (e) {
+		console.log("db-error---", e);
+		retries -= 1;
+		console.log(`retries left: ${retries}`);
+		await new Promise((res) => setTimeout(res, 4000));
+	}
+	// await createConnection({
+	// 	type: "postgres",
+	// 	host: "localhost",
+	// 	port: 27017,
+	// 	database: "smarthub",
+	// 	entities: ["src/models/*{.ts,.js}"],
+	// 	useUnifiedTopology: true,
+	// }).then((conn) => console.log("MongoDB connected", conn.isConnected));
 
 	const app = express();
 
@@ -39,7 +51,7 @@ async function StartServer() {
 
 	const RedisStore = connectRedis(session);
 	const redis = new Redis({
-		host: "localhost",
+		host: "redis-service",
 		port: 6379,
 	});
 
@@ -76,7 +88,7 @@ async function StartServer() {
 
 	apolloServer.applyMiddleware({ app, cors: false, path: "/graphql" });
 
-	app.listen(4100, () => console.log("Server running"));
+	app.listen(7100, () => console.log("Server running"));
 }
 
 StartServer().catch((error) => console.error("Error:", error));

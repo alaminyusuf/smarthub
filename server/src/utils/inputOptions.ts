@@ -1,4 +1,4 @@
-import { Client } from "./../models/Client";
+import { Client } from "../entity/Client";
 import { InputType, Field, Int } from "type-graphql";
 
 @InputType()

@@ -1,8 +1,8 @@
-import { Client } from "./../models/Client";
+import { Client } from "../entity/Client";
 import { ObjectType, Field } from "type-graphql";
-import { Freelancer } from "../models/Freelancer";
-import { Proposal } from "../models/Proposal";
-import { Job } from "../models/Job";
+import { Freelancer } from "../entity/Freelancer";
+import { Proposal } from "../entity/Proposal";
+import { Job } from "../entity/Job";
 
 @ObjectType()
 class ResponseError {

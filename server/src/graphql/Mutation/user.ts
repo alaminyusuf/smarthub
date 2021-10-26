@@ -3,14 +3,14 @@ import argon from "argon2";
 import { getMongoManager } from "typeorm";
 
 import { validateClientInputFields } from "./../../utils/validationUtil";
-import { Client } from "./../../models/Client";
+import { Client } from "../../entity/Client";
 import { ClientInputOptions } from "./../../utils/inputOptions";
 import {
 	ClientResponseType,
 	LoginResponseType,
 } from "./../../utils/responseTypes";
 import { MyContext } from "./../../types";
-import { Freelancer } from "../../models/Freelancer";
+import { Freelancer } from "../../entity/Freelancer";
 import { FreelancerInputOptions } from "../../utils/inputOptions";
 import { FreelancerResponseType } from "../../utils/responseTypes";
 import { validateFreelancerInputFields } from "../../utils/validationUtil";
