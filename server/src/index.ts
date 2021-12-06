@@ -5,7 +5,6 @@ import { createConnection } from "typeorm";
 import { MyContext } from "./types";
 
 import express from "express";
-import dotenv from "dotenv";
 import connectRedis from "connect-redis";
 import Redis from "ioredis";
 import session from "express-session";
@@ -13,10 +12,6 @@ import cors from "cors";
 
 import { UserResolver } from "./graphql/Mutation/user";
 import { UserQuery } from "./graphql/Query/user";
-
-dotenv.config();
-
-const COOKIE_SECRET = process.env.COOKIE_SECRET;
 
 async function StartServer() {
 	let retries = 5;
@@ -26,19 +21,11 @@ async function StartServer() {
 			break;
 		}
 	} catch (e) {
-		console.log("db-error---", e);
+		console.log("db-error:", e);
 		retries -= 1;
 		console.log(`retries left: ${retries}`);
 		await new Promise((res) => setTimeout(res, 4000));
 	}
-	// await createConnection({
-	// 	type: "postgres",
-	// 	host: "localhost",
-	// 	port: 27017,
-	// 	database: "smarthub",
-	// 	entities: ["src/models/*{.ts,.js}"],
-	// 	useUnifiedTopology: true,
-	// }).then((conn) => console.log("MongoDB connected", conn.isConnected));
 
 	const app = express();
 
@@ -52,7 +39,7 @@ async function StartServer() {
 	const RedisStore = connectRedis(session);
 	const redis = new Redis({
 		host: "redis-service",
-		port: 6379,
+		port: 3333,
 	});
 
 	app.use(
@@ -67,14 +54,14 @@ async function StartServer() {
 				httpOnly: true,
 				secure: false,
 			},
-			secret: COOKIE_SECRET || "secret",
+			secret: "some secret",
 			resave: false,
 			name: "smarthub",
 			saveUninitialized: false,
 		})
 	);
 
-	app.get("/", (req, res) =>
+	app.get("/", (_, res) =>
 		res.send("<h1>Hello from this awesome mock Api</h1>")
 	);
 
@@ -88,7 +75,7 @@ async function StartServer() {
 
 	apolloServer.applyMiddleware({ app, cors: false, path: "/graphql" });
 
-	app.listen(7100, () => console.log("Server running"));
+	app.listen(7100, () => console.log("Server Running 7100"));
 }
 
-StartServer().catch((error) => console.error("Error:", error));
+StartServer();

@@ -4,41 +4,49 @@ import {
 	Column,
 	Entity,
 	ManyToOne,
-	ObjectID,
-	ObjectIdColumn,
+	PrimaryGeneratedColumn,
 } from "typeorm";
 import { Proposal } from "./Proposal";
 
 @ObjectType()
 @Entity()
 export class Freelancer extends BaseEntity {
-	@ObjectIdColumn()
-	@Field(() => String)
-	public id: ObjectID;
-	@Column({ type: "varchar", nullable: false })
+	@PrimaryGeneratedColumn({ type: "int" })
+	@Field(() => Int)
+	public id: number;
+
+	@Column({ nullable: false })
 	@Field(() => String)
 	public firstName: string;
+
 	@Column({ type: "varchar", nullable: false })
 	@Field(() => String)
 	public lastName: string;
-	@Column({ type: "varchar", nullable: false, unique: true })
+
+	@Column({ nullable: false, unique: true })
 	@Field(() => String)
 	public email: string;
-	@Column({ type: "varchar", nullable: false })
+
+	@Column({ nullable: false })
 	public password: string;
+
 	@Field(() => String)
-	@Column({ type: "varchar", nullable: false })
+	@Column({ nullable: false })
 	public country: string;
+
 	@Field(() => String)
-	@Column({ type: "varchar", nullable: false })
+	@Column({ nullable: false })
 	public about: string;
+
 	@Field(() => Int)
 	@Column({ type: "int", nullable: false })
 	public phone: string;
+
 	@Field(() => String)
-	@Column({ type: "varchar", nullable: false })
+	@Column({ nullable: false })
 	public jobTitle: string;
+
 	@ManyToOne(() => Proposal, (proposal) => proposal.writer)
-	@Field(() => [Proposal], { nullable: true })
+	@Field(() => [Proposal], { defaultValue: [] })
 	public proposals: Proposal[];
 }

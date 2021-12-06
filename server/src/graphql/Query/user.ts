@@ -1,3 +1,4 @@
+import { Client } from "./../../entity/Client";
 import { Resolver, Query, Ctx } from "type-graphql";
 import { Freelancer } from "../../entity/Freelancer";
 import { Job } from "../../entity/Job";
@@ -5,6 +6,10 @@ import { MyContext } from "../../types";
 
 @Resolver()
 export class UserQuery {
+	@Query(() => [Client])
+	async getAllClients(): Promise<Client[] | undefined> {
+		return await Client.find();
+	}
 	@Query(() => [Freelancer])
 	async getAllFreelancers(): Promise<Freelancer[] | undefined> {
 		return await Freelancer.find();

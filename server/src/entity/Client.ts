@@ -3,18 +3,17 @@ import {
 	BaseEntity,
 	Column,
 	Entity,
-	ObjectID,
-	ObjectIdColumn,
 	OneToMany,
+	PrimaryGeneratedColumn,
 } from "typeorm";
 import { Job } from "./Job";
 
 @ObjectType()
 @Entity()
 export class Client extends BaseEntity {
-	@Field(() => String)
-	@ObjectIdColumn()
-	public id: ObjectID;
+	@PrimaryGeneratedColumn({ type: "int" })
+	@Field(() => Int)
+	public id: number;
 	@Column({ type: "varchar", nullable: false })
 	@Field(() => String)
 	public firstName: string;

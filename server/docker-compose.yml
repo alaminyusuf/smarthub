@@ -1,6 +1,7 @@
 version: "3.7"
 services:
   smarthub:
+    container_name: "smarthub"
     build:
       dockerfile: ./Dockerfile
       context: "."
@@ -13,19 +14,21 @@ services:
       - .:/usr/src/app
 
   db:
+    container_name: "smarthub-db"
     image: postgres:9.6.19-alpine
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_DB=smarthub
     ports:
-      - 5432:5432
+      - 80:80
     volumes:
       - .:/usr/src/pgdata/data
 
   redis-service:
+    container_name: "smarthub-redis-service"
     image: redis:alpine3.12
     ports:
-      - 6379:6379
+      - 3333:3333
     volumes:
       - .:/usr/src/redis/redisdata
