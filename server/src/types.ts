@@ -11,5 +11,6 @@ export type MyContext = {
 declare module "express-session" {
 	interface SessionData {
 		userId: number;
+		userType: "client" | "freelancer";
 	}
 }

@@ -1,3 +1,4 @@
+import { UserResponseType } from "./../../utils/responseTypes";
 import { Client } from "./../../entity/Client";
 import { Resolver, Query, Ctx } from "type-graphql";
 import { Freelancer } from "../../entity/Freelancer";
@@ -18,11 +19,24 @@ export class UserQuery {
 	async getAllJobs(): Promise<Job[] | undefined> {
 		return await Job.find();
 	}
-	@Query(() => Freelancer, { nullable: true })
-	async currentUser(@Ctx() { req }: MyContext) {
-		if (!req.session.userId) return undefined;
+	@Query(() => UserResponseType)
+	async currentUser(@Ctx() { req }: MyContext): Promise<UserResponseType> {
+		const notFound = {
+			field: "session",
+			message: "no cookie found",
+		};
+		if (!req.session.userId) return { notFound };
+		let queriedUser;
 		const refId = req.session.userId;
-		const user = await Freelancer.findOne(refId);
-		return user;
+		const session = req.session;
+		if (session.userType === "client") {
+			queriedUser = await Client.findOne(refId);
+			const client = queriedUser;
+			return { client };
+		} else {
+			queriedUser = await Freelancer.findOne(refId);
+			const freelancer = queriedUser;
+			return { freelancer };
+		}
 	}
 }

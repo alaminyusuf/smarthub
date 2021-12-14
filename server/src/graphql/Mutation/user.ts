@@ -156,17 +156,4 @@ export class UserResolver {
 			},
 		};
 	}
-	@Mutation(() => Boolean)
-	logout(@Ctx() { req, res }: MyContext): Promise<boolean> {
-		res.clearCookie("smarthub");
-		return new Promise((resolve) =>
-			req.session.destroy((err: any) => {
-				if (err) {
-					resolve(false);
-					return;
-				}
-				resolve(true);
-			})
-		);
-	}
 }

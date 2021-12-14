@@ -3,7 +3,7 @@ import {
 	BaseEntity,
 	Column,
 	Entity,
-	ManyToOne,
+	OneToMany,
 	PrimaryGeneratedColumn,
 } from "typeorm";
 import { Proposal } from "./Proposal";
@@ -46,7 +46,7 @@ export class Freelancer extends BaseEntity {
 	@Column({ nullable: false })
 	public jobTitle: string;
 
-	@ManyToOne(() => Proposal, (proposal) => proposal.writer)
+	@OneToMany(() => Proposal, (proposal) => proposal.writer)
 	@Field(() => [Proposal], { defaultValue: [] })
 	public proposals: Proposal[];
 }

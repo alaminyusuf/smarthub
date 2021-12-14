@@ -26,13 +26,13 @@ export class ClientResponseType {
 	errors?: ResponseError;
 }
 @ObjectType()
-export class LoginResponseType {
-	@Field(() => ResponseError, { nullable: true })
-	errors?: ResponseError;
+export class UserResponseType {
 	@Field(() => Client, { nullable: true })
 	client?: Client;
 	@Field(() => Freelancer, { nullable: true })
 	freelancer?: Freelancer;
+	@Field(() => ResponseError, { nullable: true })
+	notFound?: ResponseError;
 }
 @ObjectType()
 export class ProposalResponseType {

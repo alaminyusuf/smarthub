@@ -10,7 +10,8 @@ import Redis from "ioredis";
 import session from "express-session";
 import cors from "cors";
 
-import { UserResolver } from "./graphql/Mutation/user";
+import { FreelancerResolver } from "./graphql/Mutation/freelancer";
+import { ClientResolver } from "./graphql/Mutation/client";
 import { UserQuery } from "./graphql/Query/user";
 
 async function StartServer() {
@@ -39,7 +40,7 @@ async function StartServer() {
 	const RedisStore = connectRedis(session);
 	const redis = new Redis({
 		host: "redis-service",
-		port: 3333,
+		port: 6379,
 	});
 
 	app.use(
@@ -67,7 +68,7 @@ async function StartServer() {
 
 	const apolloServer = new ApolloServer({
 		schema: await buildSchema({
-			resolvers: [UserResolver, UserQuery],
+			resolvers: [ClientResolver, FreelancerResolver, UserQuery],
 			validate: false,
 		}),
 		context: ({ req, res }): MyContext => ({ req, res, redis }),
