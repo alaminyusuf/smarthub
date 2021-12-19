@@ -16,7 +16,7 @@ export class FreelancerInputOptions {
 	@Field(() => String)
 	jobTitle: string;
 	@Field(() => Int)
-	phone: string;
+	phone: number;
 	@Field(() => String)
 	about: string;
 }

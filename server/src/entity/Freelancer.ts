@@ -40,7 +40,7 @@ export class Freelancer extends BaseEntity {
 
 	@Field(() => Int)
 	@Column({ type: "int", nullable: false })
-	public phone: string;
+	public phone: number;
 
 	@Field(() => String)
 	@Column({ nullable: false })
