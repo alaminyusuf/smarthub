@@ -3,6 +3,7 @@ import { Connection } from "typeorm";
 import { createTestConn } from "../utils/testConnection";
 import { Freelancer } from "../entity/Freelancer";
 import { testCall } from "./../utils/graphqlTestCalls";
+import faker from "faker";
 
 const addFreelancerMutation = `
 mutation AddFreelancer($options: FreelancerInputOptions!) {
@@ -35,15 +36,16 @@ describe("freelancer resolver", () => {
 	it("should register and login a user", async () => {
 		const { graphqlTestRun } = await testCall();
 		const user = {
-			email: "a@mail.com",
-			phone: 1234546789,
-			password: "password",
-			firstName: "paul",
-			lastName: "rose",
-			country: "nigeria",
-			jobTitle: "web developer",
-			about: "i am web developer",
+			email: faker.internet.email(),
+			phone: faker.phone.phoneNumberFormat(),
+			password: faker.internet.password(),
+			firstName: faker.name.firstName(),
+			lastName: faker.name.lastName(),
+			country: faker.address.country(),
+			jobTitle: faker.name.jobTitle(),
+			about: faker.lorem.words(),
 		};
+
 		const freelancer = await graphqlTestRun({
 			source: addFreelancerMutation,
 			variableValues: {

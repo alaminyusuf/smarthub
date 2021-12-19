@@ -15,8 +15,8 @@ export class FreelancerInputOptions {
 	country: string;
 	@Field(() => String)
 	jobTitle: string;
-	@Field(() => Int)
-	phone: number;
+	@Field(() => String)
+	phone: string;
 	@Field(() => String)
 	about: string;
 }
@@ -41,8 +41,8 @@ export class ClientInputOptions {
 	companyName: string;
 	@Field(() => String)
 	country: string;
-	@Field(() => Int)
-	phone: number;
+	@Field(() => String)
+	phone: string;
 }
 @InputType()
 export class JobInputOptions {

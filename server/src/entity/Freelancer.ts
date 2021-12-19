@@ -38,9 +38,9 @@ export class Freelancer extends BaseEntity {
 	@Column({ nullable: false })
 	public about: string;
 
-	@Field(() => Int)
-	@Column({ type: "int", nullable: false })
-	public phone: number;
+	@Field(() => String)
+	@Column({ type: "varchar", nullable: false })
+	public phone: string;
 
 	@Field(() => String)
 	@Column({ nullable: false })

@@ -38,9 +38,9 @@ export class Client extends BaseEntity {
 	@Field(() => String)
 	public companyName: string;
 
-	@Field(() => Int)
-	@Column({ nullable: false, type: "int" })
-	public phone!: number;
+	@Field(() => String)
+	@Column({ nullable: false, type: "varchar" })
+	public phone!: string;
 
 	@Column({ type: "boolean", default: false })
 	@Field(() => Boolean)
